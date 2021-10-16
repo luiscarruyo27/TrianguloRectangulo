@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" type="text/css" href="css/bootstrap.min.css">
+    <link rel="stylesheet" type="text/css" href="css/estilos.css">
+    <link rel="stylesheet" type="text/css" href="css/bootstrap-grid.min.css">
+    <link rel="stylesheet" type="text/css" href="css/bootstrap-reboot.min.css">
+    <title>Calculo</title>
+</head>
+        <script src="js/jquery-3.5.1.min.js"></script>
+        <script src="js/jquery.min.js"></script>
+        <script type="text/javascript" src="js/bootstrap.min.js"></script>
+        <script type="text/javascript" src="js/bootstrap.bundle.min.js"></script>
+<script>
+    function calcular(cateto_a, cateto_b) {
+        var parametros = {
+            "cateto_a": cateto_a,
+            "cateto_b": cateto_b
+        };
+        $.ajax({
+            url: "ejecutar.php",
+            type: "post",
+            data: parametros,
+            beforeSend: function () {
+                $("#resp").html("Procesando, espere por favor...");
+            },
+            fail: function () {
+                $("#resp").html("Error al realizar el calculo");
+            },
+            success: function (response) {
+                $("#resp").html(response);
+            },
+            error: function (jqXHR, textStatus, errorThrown) {
+                console.log(textStatus, errorThrown);
+            }
+        });
+    }
+</script>
+
+<body>
+<div class="caja">
+    
+    <h1>Calculo de la hipotenusa</h1>
+
+    <div class="form-group col-md-8">
+        <label>Valor del cateto A</label>
+        <input class="form-control" type="number" name="cateto_a" id="cateto_a">
+    </div>
+
+    <div class="form-group col-md-8">
+        <label>Valor del cateto B</label>
+        <input  class="form-control" type="number" name="cateto_b" id="cateto_b">
+    </div>
+
+
+    <div class="">
+        <button onclick="calcular($('#cateto_a').val(), $('#cateto_b').val())" class="btn btn-primary"
+            type="submit" name="action">Presiona para Calcular
+        </button>
+         
+      
+ 
+
+    </div>
+
+</div>
+    <div id="resp" class="caja1">
+       <h3>Resultado</h3>
+      
+      
+
+    </div>
+
+
+</body>
+
+</html>
